@@ -49,11 +49,13 @@ const getAdvertisementElement = ({
 
   const featuresContainer = advertisementElement.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  const modifiers = offer.features.map((features) => `popup__feature--${features}`);
-  featuresList.forEach((featureListItem) => {
-    const modifier = featureListItem.classList[1];
 
-    if (!modifiers.includes(modifier)) {
+  featuresList.forEach((featureListItem) => {
+
+    const isNecessary = offer.features.some(
+      (features) => featureListItem.classList.contains(`popup__feature--${features}`),
+    );
+    if (!isNecessary) {
       featureListItem.remove();
     }
   });
