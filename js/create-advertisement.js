@@ -2,7 +2,7 @@ import {
   createAdvertisementArray
 } from './data.js';
 import {
-  getWordEnging
+  getWordEnging,
 } from './util.js';
 
 const usersAdvertimentsTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -29,17 +29,17 @@ const getAdvertisementElement = ({
   const popupAddress = advertisementElement.querySelector('.popup__text--address');
   popupAddress.textContent = offer.address;
 
-  const popupPrice = advertisementElement.querySelector('.popup__text--price');
-  popupPrice.textContent = `${offer.price} ₽/ночь`;
+  const popupPrice = advertisementElement.querySelector('.js__card--price');
+  popupPrice.textContent = offer.price;
 
   const popupType = advertisementElement.querySelector('.popup__type');
   popupType.textContent = accomodationTypeNames.get(offer.type);
 
   const popupCapacity = advertisementElement.querySelector('.popup__text--capacity');
 
-  const roomsText = getWordEnging(offer.rooms, ['комната', 'комнаты', 'комнат']);
+  const getroomsText = (count) => getWordEnging(count, ['комната', 'комнаты', 'комнат']);
   const guestsText = getWordEnging(offer.guests, ['гостя', 'гостей', 'гостей']);
-  popupCapacity.textContent = `${offer.rooms} ${roomsText} для ${offer.guests} ${guestsText}`;
+  popupCapacity.textContent = `${offer.rooms} ${getroomsText(offer.rooms)} для ${offer.guests} ${guestsText}`;
 
   const popupTime = advertisementElement.querySelector('.popup__text--time');
   popupTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;

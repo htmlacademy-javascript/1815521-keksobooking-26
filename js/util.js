@@ -55,5 +55,6 @@ export {
   getRandomArrayElement,
   getRandomSubArray,
   getRandomArrayOfElements,
-  getWordEnging
+  getWordEnging,
 };
+
