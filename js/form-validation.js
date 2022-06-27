@@ -1,5 +1,5 @@
 import {
-  getWordEnging
+  getWordEnding
 } from './util.js';
 
 const MIN_GUESTS_COUNT = '0';
@@ -35,7 +35,7 @@ const accomodationOptions = {
 
 const validateAccomodation = () => accomodationOptions[roomsCountInput.value].includes(Number(guestsCountInput.value));
 
-const getRoomsText = (count) => getWordEnging(count, ['комнаты', 'комнат', 'комнат']);
+const getRoomsText = (count) => getWordEnding(count, ['комнаты', 'комнат', 'комнат']);
 function setGuestsErorrMessage() {
   if (guestsCountInput.value === MIN_GUESTS_COUNT) {
     return 'Ой-ой, не для гостей';
@@ -43,7 +43,7 @@ function setGuestsErorrMessage() {
   return `Необходимо не менее ${guestsCountInput.value} ${getRoomsText(guestsCountInput.value)} `;
 }
 
-const getGuestsText = (count) => getWordEnging(count, ['человека', 'человек', 'человек']);
+const getGuestsText = (count) => getWordEnding(count, ['человека', 'человек', 'человек']);
 function setRoomsErorrMessage() {
   if (roomsCountInput.value === MAX_ROOMS_COUNT) {
     return 'Ой-ой, не для гостей';

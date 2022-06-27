@@ -2,7 +2,7 @@ import {
   createAdvertisementArray
 } from './data.js';
 import {
-  getWordEnging,
+  getWordEnding,
 } from './util.js';
 
 const usersAdvertimentsTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -37,8 +37,8 @@ const getAdvertisementElement = ({
 
   const popupCapacity = advertisementElement.querySelector('.popup__text--capacity');
 
-  const getroomsText = (count) => getWordEnging(count, ['комната', 'комнаты', 'комнат']);
-  const guestsText = getWordEnging(offer.guests, ['гостя', 'гостей', 'гостей']);
+  const getroomsText = (count) => getWordEnding(count, ['комната', 'комнаты', 'комнат']);
+  const guestsText = getWordEnding(offer.guests, ['гостя', 'гостей', 'гостей']);
   popupCapacity.textContent = `${offer.rooms} ${getroomsText(offer.rooms)} для ${offer.guests} ${guestsText}`;
 
   const popupTime = advertisementElement.querySelector('.popup__text--time');
