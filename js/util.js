@@ -33,7 +33,7 @@ const getRandomArrayOfElements = (elements, length) => Array.from({
   length: length
 }, () => getRandomArrayElement(elements));
 
-const getWordEnging = (value, words) => {
+const getWordEnding = (value, words) => {
   value = Math.abs(value) % 100;
   const num = value % 10;
   if (value > 10 && value < 20) {
@@ -55,5 +55,6 @@ export {
   getRandomArrayElement,
   getRandomSubArray,
   getRandomArrayOfElements,
-  getWordEnging
+  getWordEnding,
 };
+
