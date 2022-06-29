@@ -20,4 +20,4 @@ const turnOnForm = (form, elements) => {
 };
 
 turnOnForm(advertisementForm, advertisementFormElements);
-turnOnForm(filterForm, filterFormElements);
+turnOffForm(filterForm, filterFormElements);
