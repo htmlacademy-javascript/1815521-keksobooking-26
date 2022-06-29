@@ -99,7 +99,7 @@
           <label class="ad-form__label" for="title">Заголовок объявления</label>
           <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио" minlength="30"
             maxlength="100" required data-pristine-required-message="Ой-ой, это обязательное поле"
-            data-pristine-minlength-message="Минимальная длина 30 символа"
+            data-pristine-minlength-message="Ой-ой, длина от 30 до 100 символов"
             data-pristine-maxlength-message="Максимальная длина 100 символов">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
@@ -118,10 +118,8 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" min="0" max="100000" required
-            data-pristine-required-message="Ой-ой, это обязательное поле"
-            data-pristine-min-message="Минимальное значение 0"
-            data-pristine-max-message="Максимальное значение 100 000">
+          <input id="price" name="price" type="number" placeholder="1000" required
+            data-pristine-required-message="Ой-ой, это обязательное поле">
           <div class="ad-form__slider"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
@@ -138,20 +136,20 @@
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
-            <label class="ad-form__label" for="room_number">Количество комнат</label>
-            <select id="room_number" name="rooms">
-              <option value="1" selected>1 комната</option>
-              <option value="2">2 комнаты</option>
-              <option value="3">3 комнаты</option>
-              <option value="100">100 комнат</option>
-            </select>
+          <label class="ad-form__label" for="room_number">Количество комнат</label>
+          <select id="room_number" name="rooms">
+            <option value="1" selected>1 комната</option>
+            <option value="2">2 комнаты</option>
+            <option value="3">3 комнаты</option>
+            <option value="100">100 комнат</option>
+          </select>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity">
-            <option value="3" selected>для 3 гостей</option>
+            <option value="3">для 3 гостей</option>
             <option value="2">для 2 гостей</option>
-            <option value="1">для 1 гостя</option>
+            <option value="1" selected>для 1 гостя</option>
             <option value="0">не для гостей</option>
           </select>
         </fieldset>

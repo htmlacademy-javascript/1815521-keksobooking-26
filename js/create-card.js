@@ -37,9 +37,9 @@ const getAdvertisementElement = ({
 
   const popupCapacity = advertisementElement.querySelector('.popup__text--capacity');
 
-  const getroomsText = (count) => getWordEnding(count, ['комната', 'комнаты', 'комнат']);
+  const getRoomsText = (count) => getWordEnding(count, ['комната', 'комнаты', 'комнат']);
   const guestsText = getWordEnding(offer.guests, ['гостя', 'гостей', 'гостей']);
-  popupCapacity.textContent = `${offer.rooms} ${getroomsText(offer.rooms)} для ${offer.guests} ${guestsText}`;
+  popupCapacity.textContent = `${offer.rooms} ${getRoomsText(offer.rooms)} для ${offer.guests} ${guestsText}`;
 
   const popupTime = advertisementElement.querySelector('.popup__text--time');
   popupTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
