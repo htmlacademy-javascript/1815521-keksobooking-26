@@ -925,6 +925,9 @@ fieldset {
   border: 2px solid #ff5635;
 }
 
+.ad-form__element--error {
+  color: #ff5635;
+}
 
 /**
  * Сообщения об успешном и неуспешном создании объявления

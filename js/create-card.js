@@ -1,7 +1,4 @@
 import {
-  createAdvertisementArray
-} from './data.js';
-import {
   getWordEnding,
 } from './util.js';
 
@@ -81,14 +78,4 @@ const getAdvertisementElement = ({
   return advertisementElement;
 };
 
-const renderAllAdvertisements = (advertisementsData) => {
-  const fragment = document.createDocumentFragment();
-  advertisementsData.forEach((advertisement) => {
-    fragment.append(getAdvertisementElement(advertisement));
-  });
-  document.querySelector('#map-canvas').append(fragment);
-};
-
-const advertisements = createAdvertisementArray();
-
-renderAllAdvertisements(advertisements.slice(0, 1));
+export {getAdvertisementElement};
