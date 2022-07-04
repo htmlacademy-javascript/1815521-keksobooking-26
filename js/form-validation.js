@@ -4,6 +4,7 @@ import {
 
 const MIN_GUESTS_COUNT = '0';
 const MAX_ROOMS_COUNT = '100';
+const MIN_ROOM_PRICE = 0;
 const MAX_ROOM_PRICE = 100000;
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -55,23 +56,70 @@ pristine.addValidator(guestsCountInput, validateAccommodation, setGuestsErorrMes
 
 const priceInput = form.querySelector('#price');
 const accommodationTypeField = document.querySelector('#type');
-const MinPriceForAccommodationType = {
-  'bungalow': 0,
-  'flat': 1000,
-  'hotel': 3000,
-  'house': 5000,
-  'palace': 10000
+const minPriceForAccommodationType = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000
 };
 
-const getMinPrice = () => Number(MinPriceForAccommodationType[accommodationTypeField.value]);
+const getMinPrice = () => Number(minPriceForAccommodationType[accommodationTypeField.value]);
 const validatePrice = (value) => value >= getMinPrice() && value <= MAX_ROOM_PRICE;
 
 const setPriceErrorMessage = () => `Минимальная цена ${getMinPrice()}, максимальная цена ${MAX_ROOM_PRICE}`;
 pristine.addValidator(priceInput, validatePrice, setPriceErrorMessage);
 
-const onTypeOptionChange = (evt) => {
-  priceInput.placeholder = MinPriceForAccommodationType[evt.target.value];
+const sliderElement = document.querySelector('.ad-form__slider');
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: getMinPrice(),
+    max: MAX_ROOM_PRICE,
+  },
+  start: MIN_ROOM_PRICE,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value.toFixed(0);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+priceInput.addEventListener('input', () => {
+  sliderElement.noUiSlider.set(priceInput.value);
+});
+
+sliderElement.noUiSlider.on('slide', () => {
+  priceInput.value = sliderElement.noUiSlider.get();
   pristine.validate(priceInput);
+});
+
+const getMinPriceForSlider = (minPrice) => {
+  if (minPrice > priceInput.value) {
+    return minPrice;
+  }
+
+  return Number(priceInput.value);
+};
+
+const onTypeOptionChange = (evt) => {
+  const minRoomPrice = minPriceForAccommodationType[evt.target.value];
+  priceInput.placeholder = minRoomPrice;
+  priceInput.min = minRoomPrice;
+  pristine.validate(priceInput);
+
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: minRoomPrice,
+      max: MAX_ROOM_PRICE,
+    },
+    start: getMinPriceForSlider(minRoomPrice),
+  });
 };
 accommodationTypeField.addEventListener('change', onTypeOptionChange);
 

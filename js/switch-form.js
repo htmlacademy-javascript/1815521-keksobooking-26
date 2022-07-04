@@ -1,8 +1,3 @@
-const advertisementForm = document.querySelector('.ad-form');
-const advertisementFormElements = advertisementForm.querySelectorAll('fieldset');
-const filterForm = document.querySelector('.map__filters');
-const filterFormElements = filterForm.querySelectorAll('select, fieldset');
-
 const switchElements = (elements, activate) => {
   elements.forEach((element) => {
     element.disabled = !activate;
@@ -19,5 +14,6 @@ const turnOnForm = (form, elements) => {
   form.classList.remove('ad-form--disabled');
 };
 
-turnOnForm(advertisementForm, advertisementFormElements);
-turnOffForm(filterForm, filterFormElements);
+export {turnOnForm, turnOffForm};
+
+
