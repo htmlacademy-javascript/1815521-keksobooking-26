@@ -44,22 +44,28 @@ const getAdvertisementElement = ({
   const popupDescription = advertisementElement.querySelector('.popup__description');
   popupDescription.textContent = offer.description ? offer.description : popupDescription.classList.add('hidden');
 
-  const featuresContainer = advertisementElement.querySelector('.popup__features');
-  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+  const createFeatures = () => {
+    const featuresContainer = advertisementElement.querySelector('.popup__features');
+    const featuresList = featuresContainer.querySelectorAll('.popup__feature');
 
-  featuresList.forEach((featureListItem) => {
+    const dataFeaturesList = offer.features;
 
-    const isNecessary = offer.features.some(
-      (features) => featureListItem.classList.contains(`popup__feature--${features}`),
-    );
-    if (!isNecessary) {
-      featureListItem.remove();
+    if (!dataFeaturesList) {
+      featuresContainer.remove();
+      return featuresContainer;
     }
-  });
 
-  if (featuresContainer.childElementCount === 0) {
-    featuresContainer.classList.add('hidden');
-  }
+    featuresList.forEach((featureListItem) => {
+      const isNecessary = offer.features.some(
+        (features) => featureListItem.classList.contains(`popup__feature--${features}`),
+      );
+      if (!isNecessary) {
+        featureListItem.remove();
+      }
+    });
+  };
+
+  createFeatures();
 
   const photoContainer = advertisementElement.querySelector('.popup__photos');
   photoContainer.replaceChildren(...offer.photos.map(
@@ -78,4 +84,6 @@ const getAdvertisementElement = ({
   return advertisementElement;
 };
 
-export {getAdvertisementElement};
+export {
+  getAdvertisementElement
+};

@@ -1,6 +1,17 @@
 import {
   getWordEnding
 } from './util.js';
+import {
+  sendData
+} from './api.js';
+import {
+  showErrorMessage,
+  showSuccessMessage
+} from './message.js';
+import {
+  setAddressInput,
+  resetMap
+} from './map.js';
 
 const MIN_GUESTS_COUNT = '0';
 const MAX_ROOMS_COUNT = '100';
@@ -137,12 +148,56 @@ checkOutField.addEventListener('change', (evt) => {
   checkInField.value = evt.target.value;
 });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const submitButton = document.querySelector('.ad-form__submit');
 
-  if (pristine.validate()) {
-    window.console.log('Можно отправлять');
-  } else {
-    window.console.log('Форма невалидна');
-  }
-});
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
+
+const resetForm = () => {
+  form.reset();
+  sliderElement.noUiSlider.set(priceInput.placeholder);
+  priceInput.placeholder = getMinPrice();
+  setAddressInput();
+  resetMap();
+};
+
+const resetButton = document.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+}
+);
+
+const setUserFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (!pristine.validate()) {
+      return;
+    }
+
+    blockSubmitButton();
+    sendData(
+      () => {
+        showSuccessMessage();
+        unblockSubmitButton();
+        resetForm();
+      },
+      () => {
+        showErrorMessage();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
+  });
+};
+
+setUserFormSubmit();
