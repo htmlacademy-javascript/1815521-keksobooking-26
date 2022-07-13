@@ -41,6 +41,7 @@ const map = L.map('map-canvas')
     turnOnForm(advertisementForm, advertisementFormElements);
     sliderElement.removeAttribute('disabled');
     setAddressInput();
+    renderAdvertisments();
   })
   .setView({
     lat: START_LAT,
@@ -95,6 +96,19 @@ const createMarker = (advertisment) => {
     .bindPopup(getAdvertisementElement(advertisment));
 };
 
+function renderAdvertisments () {
+  getData((advertisments) => {
+    advertisments.slice()
+      .slice(0, 10)
+      .forEach(createMarker);
+    onFilterChange(debounce(() => {
+      filterAdvertisments(advertisments);
+    }));
+
+    turnOnForm(filterForm, filterFormElements);
+  });
+}
+
 const resetMap = () => {
   mainPinMarker.setLatLng({
     lat: START_LAT,
@@ -108,20 +122,6 @@ const resetMap = () => {
     .closePopup();
 };
 
-const loadMap = () => {
-  getData((advertisments) => {
-    advertisments.slice()
-      .slice(0, 10)
-      .forEach(createMarker);
-    onFilterChange(debounce(() => {
-      filterAdvertisments(advertisments);
-    }));
-
-    turnOnForm(filterForm, filterFormElements);
-  });
-};
-
-loadMap();
 
 export {
   markerGroup,
