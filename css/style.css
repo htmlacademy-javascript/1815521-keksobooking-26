@@ -929,6 +929,19 @@ fieldset {
   color: #ff5635;
 }
 
+.show-alert {
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  top:0;
+  right: 0;
+  padding: 10px 3px;
+  font-size: 24px;
+  text-align: center;
+  text-transform: none;
+  background-color: #ff5635;
+}
+
 /**
  * Сообщения об успешном и неуспешном создании объявления
  */
