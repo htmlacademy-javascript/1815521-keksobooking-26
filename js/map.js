@@ -2,11 +2,19 @@ import {
   turnOnForm,
   turnOffForm
 } from './switch-form.js';
-
 import {
   getAdvertisementElement
 } from './create-card.js';
-
+import {
+  filterAdvertisments,
+  onFilterChange
+} from './filter.js';
+import {
+  getData
+} from './api.js';
+import {
+  debounce
+} from './util.js';
 
 const START_LAT = 35.68950;
 const START_LNG = 139.69200;
@@ -23,7 +31,6 @@ turnOffForm(filterForm, filterFormElements);
 turnOffForm(advertisementForm, advertisementFormElements);
 sliderElement.setAttribute('disabled', true);
 
-
 const setAddressInput = () => {
   addressInput.setAttribute('readonly', true);
   addressInput.value = `${START_LAT.toFixed(NUMBER_OF_DECIMAL)}, ${START_LNG.toFixed(NUMBER_OF_DECIMAL)}`;
@@ -31,7 +38,6 @@ const setAddressInput = () => {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    turnOnForm(filterForm, filterFormElements);
     turnOnForm(advertisementForm, advertisementFormElements);
     sliderElement.removeAttribute('disabled');
     setAddressInput();
@@ -76,24 +82,17 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createMarker = (card) => {
+const createMarker = (advertisment) => {
   const marker = L.marker({
-    lat: card.location.lat,
-    lng: card.location.lng,
+    lat: advertisment.location.lat,
+    lng: advertisment.location.lng,
   }, {
     icon,
   }, );
 
   marker
     .addTo(markerGroup)
-    .bindPopup(getAdvertisementElement(card));
-};
-
-
-const createMarkers = (dataOffers) => {
-  dataOffers.forEach((data) => {
-    createMarker(data);
-  });
+    .bindPopup(getAdvertisementElement(advertisment));
 };
 
 const resetMap = () => {
@@ -109,8 +108,24 @@ const resetMap = () => {
     .closePopup();
 };
 
+const loadMap = () => {
+  getData((advertisments) => {
+    advertisments.slice()
+      .slice(0, 10)
+      .forEach(createMarker);
+    onFilterChange(debounce(() => {
+      filterAdvertisments(advertisments);
+    }));
+
+    turnOnForm(filterForm, filterFormElements);
+  });
+};
+
+loadMap();
+
 export {
-  createMarkers,
+  markerGroup,
+  createMarker,
   setAddressInput,
   resetMap
 };

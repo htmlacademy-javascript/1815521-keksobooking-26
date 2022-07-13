@@ -35,8 +35,8 @@ const getAdvertisementElement = ({
   const popupCapacity = advertisementElement.querySelector('.popup__text--capacity');
 
   const getRoomsText = (count) => getWordEnding(count, ['комната', 'комнаты', 'комнат']);
-  const guestsText = getWordEnding(offer.guests, ['гостя', 'гостей', 'гостей']);
-  popupCapacity.textContent = `${offer.rooms} ${getRoomsText(offer.rooms)} для ${offer.guests} ${guestsText}`;
+  const getGuestsText = (count) => getWordEnding(count, ['гостя', 'гостей', 'гостей']);
+  popupCapacity.textContent = `${offer.rooms} ${getRoomsText(offer.rooms)} для ${offer.guests} ${getGuestsText(offer.guests)}`;
 
   const popupTime = advertisementElement.querySelector('.popup__text--time');
   popupTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
@@ -67,19 +67,26 @@ const getAdvertisementElement = ({
 
   createFeatures();
 
-  const photoContainer = advertisementElement.querySelector('.popup__photos');
-  photoContainer.replaceChildren(...offer.photos.map(
-    (photo) => {
-      const photoElement = advertisementElement.querySelector('.popup__photo').cloneNode(true);
-      photoElement.src = photo;
+  const createPhotos = () => {
+    const photoContainer = advertisementElement.querySelector('.popup__photos');
+    const dataPhotoList = offer.photos;
 
-      return photoElement;
+    if (!dataPhotoList) {
+      photoContainer.remove();
+      return photoContainer;
     }
-  ));
 
-  if (photoContainer.childElementCount === 0) {
-    photoContainer.classList.add('hidden');
-  }
+    photoContainer.replaceChildren(...offer.photos.map(
+      (photo) => {
+        const photoElement = advertisementElement.querySelector('.popup__photo').cloneNode(true);
+        photoElement.src = photo;
+
+        return photoElement;
+      }
+    ));
+  };
+
+  createPhotos();
 
   return advertisementElement;
 };
