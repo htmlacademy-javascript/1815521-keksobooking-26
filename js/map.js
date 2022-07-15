@@ -46,7 +46,6 @@ const filterMapMarkers = () => dataFromServer.then((data) =>
     filterAdvertisments(data);
   })));
 
-
 const map = L.map('map-canvas')
   .on('load', () => {
     turnOnForm(advertisementForm, advertisementFormElements);
@@ -59,7 +58,6 @@ const map = L.map('map-canvas')
     lat: START_LAT,
     lng: START_LNG,
   }, 10);
-
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
