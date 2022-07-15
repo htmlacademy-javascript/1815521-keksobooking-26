@@ -12,6 +12,10 @@ import {
   setAddressInput,
   resetMap
 } from './map.js';
+import {
+  resetUserPhotoInput,
+  resetAccommodationPhotoInput
+} from './photo.js';
 
 const MIN_GUESTS_COUNT = '0';
 const MAX_ROOMS_COUNT = '100';
@@ -160,11 +164,16 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Сохранить';
 };
 
+const filterForm = document.querySelector('.map__filters');
+
 const resetForm = () => {
   form.reset();
+  filterForm.reset();
   sliderElement.noUiSlider.set(priceInput.placeholder);
   priceInput.placeholder = getMinPrice();
   setAddressInput();
+  resetUserPhotoInput();
+  resetAccommodationPhotoInput();
   resetMap();
 };
 
@@ -173,8 +182,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
-}
-);
+});
 
 const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
@@ -190,6 +198,8 @@ const setUserFormSubmit = () => {
         showSuccessMessage();
         unblockSubmitButton();
         resetForm();
+        resetUserPhotoInput();
+        resetAccommodationPhotoInput();
       },
       () => {
         showErrorMessage();
