@@ -34,7 +34,8 @@ const pristine = new Pristine(form, {
 }, false);
 
 const titleInput = form.querySelector('#title');
-pristine.addValidator(titleInput, (value) => value.length >= MIN_TITLE_LENGTH && value.length <= MAX_TITLE_LENGTH);
+pristine.addValidator(titleInput, (value) => value.length >= MIN_TITLE_LENGTH && value.length <= MAX_TITLE_LENGTH, 'Ой-ой, длина заголовка от 30 до 100 символов');
+pristine.addValidator(titleInput, (value) => value.length === value.trim().length, 'Ой-ой, лишний пробел в начале или конце строки');
 
 const onTitleInputBlur = () => pristine.validate(titleInput);
 titleInput.addEventListener('blur', onTitleInputBlur);
@@ -156,12 +157,12 @@ const submitButton = document.querySelector('.ad-form__submit');
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = 'Сохраняю...';
+  submitButton.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = 'Сохранить';
+  submitButton.textContent = 'Опубликовать';
 };
 
 const filterForm = document.querySelector('.map__filters');

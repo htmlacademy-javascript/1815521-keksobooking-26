@@ -10,10 +10,8 @@ const turnOffForm = (form, elements) => {
 };
 
 const turnOnForm = (form, elements) => {
-  switchElements(elements, true);
   form.classList.remove('ad-form--disabled');
+  switchElements(elements, true);
 };
 
 export {turnOnForm, turnOffForm};
-
-
