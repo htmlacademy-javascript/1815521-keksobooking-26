@@ -31,6 +31,7 @@ turnOffForm(filterForm, filterFormElements);
 turnOffForm(advertisementForm, advertisementFormElements);
 sliderElement.setAttribute('disabled', true);
 
+
 const setAddressInput = () => {
   addressInput.setAttribute('readonly', true);
   addressInput.value = `${START_LAT.toFixed(NUMBER_OF_DECIMAL)}, ${START_LNG.toFixed(NUMBER_OF_DECIMAL)}`;
@@ -38,22 +39,23 @@ const setAddressInput = () => {
 
 const dataFromServer = getData();
 
-const showMapMarkers = () => dataFromServer.then((data) =>
-  data.slice().slice(0, 10).forEach(createMarker)).then(turnOnForm(filterForm, filterFormElements));
+const showMapMarkers = () => dataFromServer.then(
+  (data) => data.slice().slice(0, 10).forEach(createMarker)).then(
+  () => turnOnForm(filterForm, filterFormElements)
+);
 
 const filterMapMarkers = () => dataFromServer.then((data) =>
   onFilterChange(debounce(() => {
     filterAdvertisments(data);
   })));
 
-
 const map = L.map('map-canvas')
   .on('load', () => {
-    turnOnForm(advertisementForm, advertisementFormElements);
-    sliderElement.removeAttribute('disabled');
-    setAddressInput();
     showMapMarkers();
     filterMapMarkers();
+    setAddressInput();
+    turnOnForm(advertisementForm, advertisementFormElements);
+    sliderElement.removeAttribute('disabled');
   })
   .setView({
     lat: START_LAT,
@@ -95,7 +97,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-function createMarker (advertisment) {
+function createMarker(advertisment) {
   const marker = L.marker({
     lat: advertisment.location.lat,
     lng: advertisment.location.lng,
